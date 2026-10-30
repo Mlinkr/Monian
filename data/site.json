@@ -1,0 +1,69 @@
+{
+  "version": 1,
+  "profile": {
+    "name": "Monian",
+    "tagline": "修图 · 剪辑 · 记录生活的碎片",
+    "avatar": "",
+    "cover": "",
+    "chips": ["视觉创作者", "可接约稿", "常驻线上"],
+    "bio": "你好，我是 **Monian**。\n\n这里收集我散落在各个平台的落脚点：修图与剪辑作品、日常随笔、偶尔的碎碎念。\n\n- 修图为主，偶尔剪点小片子\n- 所有作品仅展示，`禁二改` 与抹水印\n- 合作 / 约稿请走邮箱或小红书私信\n\n---\n\n下面是链接目录，点任意一张卡片即可跳转。"
+  },
+  "links": [
+    {
+      "id": "l-weibo",
+      "platform": "weibo",
+      "title": "微博",
+      "desc": "日常与作品碎片，更新最勤",
+      "url": "https://weibo.com/"
+    },
+    {
+      "id": "l-xhs",
+      "platform": "xiaohongshu",
+      "title": "小红书",
+      "desc": "修图产出 · 排版与调色笔记",
+      "url": "https://www.xiaohongshu.com/"
+    },
+    {
+      "id": "l-bili",
+      "platform": "bilibili",
+      "title": "哔哩哔哩",
+      "desc": "剪辑短片与教程",
+      "url": "https://www.bilibili.com/"
+    },
+    {
+      "id": "l-douyin",
+      "platform": "douyin",
+      "title": "抖音",
+      "desc": "竖屏小短片",
+      "url": "https://www.douyin.com/"
+    },
+    {
+      "id": "l-gh",
+      "platform": "github",
+      "title": "GitHub",
+      "desc": "写的一些小工具与源码",
+      "url": "https://github.com/Mlinkr"
+    },
+    {
+      "id": "l-mail",
+      "platform": "email",
+      "title": "邮箱",
+      "desc": "约稿与合作",
+      "url": "mailto:hello@example.com"
+    },
+    {
+      "id": "l-web",
+      "platform": "link",
+      "title": "个人作品站",
+      "desc": "整理好的完整作品集",
+      "url": "https://github.com/"
+    }
+  ],
+  "social": {
+    "weibo": "",
+    "xiaohongshu": "",
+    "bilibili": "",
+    "github": ""
+  },
+  "updatedAt": ""
+}
