@@ -5,15 +5,18 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
 <meta name="theme-color" content="#f7f4f0" />
 <title>Monian · Links</title>
-<meta name="description" content="Monian — 修图 · 剪辑 · 记录生活的碎片" />
-
+<meta name="description" content="Monian — 所有链接都在这里" />
 <meta property="og:type" content="profile" />
 <meta property="og:title" content="Monian · Links" />
-<meta property="og:description" content="修图 · 剪辑 · 记录生活的碎片" />
+<meta property="og:description" content="所有链接都在这里" />
 <meta name="twitter:card" content="summary_large_image" />
 
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop offset='0' stop-color='%23b87d6e'/%3E%3Cstop offset='1' stop-color='%236d9e8f'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='64' height='64' rx='16' fill='url(%23g)'/%3E%3Ctext x='32' y='43' font-family='Georgia,serif' font-size='30' fill='%23fff' text-anchor='middle'%3EM%3C/text%3E%3C/svg%3E" />
-<link rel="stylesheet" href="assets/css/style.css?v=1" />
+
+<!-- 字体与参考仓库一致：自托管 Bodoni Moda + 霞鹜铭心宋 -->
+<link rel="preload" as="font" type="font/woff2" href="assets/fonts/bodoni-moda-latin-wght-normal.woff2" crossorigin />
+<link rel="stylesheet" href="https://fontsapi.zeoseven.com/24/main/result.css" />
+<link rel="stylesheet" href="assets/css/style.css?v=2" />
 </head>
 <body>
 
@@ -23,33 +26,55 @@
   <span class="grain"></span>
 </div>
 
+<!-- 编辑工具条（仅本人可见） -->
+<div class="edit-bar" id="editBar" hidden>
+  <span class="edit-who" id="editWho">编辑中</span>
+  <span class="edit-tip">点文字直接改 · 点卡片改链接</span>
+  <span class="edit-actions">
+    <button type="button" class="bar-btn ghost" id="exitEditBtn">退出编辑</button>
+    <button type="button" class="bar-btn ghost" id="logoutBtn">退出登录</button>
+    <button type="button" class="bar-btn solid" id="publishBtn">发布</button>
+    <span class="dirty-dot" id="dirtyDot" hidden title="有未发布的修改"></span>
+  </span>
+</div>
+
 <main class="page">
 
   <!-- ===== 上半部分：封面 + 头像 + 名称 ===== -->
   <header class="hero">
     <div class="hero-cover"></div>
     <div class="hero-inner">
-      <div class="avatar-wrap">
+      <div class="avatar-wrap" id="avatarWrap">
         <div class="avatar-ring" aria-hidden="true"></div>
         <img class="avatar" alt="头像" />
+        <span class="edit-pin avatar-pin" aria-hidden="true">换头像</span>
       </div>
       <h1 class="hero-name">Monian</h1>
       <p class="hero-tagline"></p>
-      <div class="hero-meta"></div>
+      <div class="hero-meta" id="heroMeta"></div>
+      <button type="button" class="chip-add" id="chipAdd">+ 标签</button>
     </div>
+    <button type="button" class="edit-pin cover-pin" id="coverBtn">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 15.2a3.2 3.2 0 1 0 0-6.4 3.2 3.2 0 0 0 0 6.4Z" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M9 3.6 7.8 5.7H5A2 2 0 0 0 3 7.7v9.7a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V7.7a2 2 0 0 0-2-2h-2.8L15 3.6H9Z" fill="none" stroke="currentColor" stroke-width="1.8"/></svg>
+      换背景
+    </button>
   </header>
 
   <!-- ===== 简介 ===== -->
-  <section class="about" aria-label="关于">
-    <div class="card bio"></div>
+  <section class="about" id="about" aria-label="关于">
+    <div class="card bio" id="bioBox"></div>
   </section>
 
   <!-- ===== 链接列表 ===== -->
   <h2 class="divider">Links</h2>
-  <nav class="links" aria-label="所有链接"></nav>
+  <nav class="links" id="links" aria-label="所有链接"></nav>
 
-  <!-- 加载占位：JS 渲染完成后自动移除 -->
-  <div class="skeleton" aria-hidden="true">
+  <button type="button" class="add-link" id="addLink" hidden>
+    <span class="plus">+</span> 添加链接
+  </button>
+
+  <!-- 加载占位 -->
+  <div class="skeleton" id="skeleton" aria-hidden="true">
     <span class="sk sk-link"></span>
     <span class="sk sk-link"></span>
     <span class="sk sk-link"></span>
@@ -58,10 +83,13 @@
   <footer class="foot">
     <div class="foot-mark">Monian</div>
     <div class="foot-sub">© <span class="foot-year"></span> Monian · 保留所有作品版权</div>
+    <button type="button" class="foot-key" id="loginBtn" title="站点所有者登录">
+      <span class="key-dot"></span> 管理
+    </button>
   </footer>
 
 </main>
 
-<script type="module" src="assets/js/app.js?v=1"></script>
+<script type="module" src="assets/js/app.js?v=2"></script>
 </body>
 </html>
