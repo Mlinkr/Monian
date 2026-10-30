@@ -20,7 +20,15 @@
       "desc": "拼图预览（调试好后，每次上传图片一键生成）",
       "url": "https://mlinkr.github.io/Monian-Preview/",
       "icon": ""
+    },
+    {
+      "id": "l-fampv3z",
+      "platform": "link",
+      "title": "Monian-PhotoTool",
+      "desc": "图片批处理（尺寸、命名、一键分组打包）",
+      "url": "https://mlinkr.github.io/Monian-PhotoTool/",
+      "icon": ""
     }
   ],
-  "updatedAt": "2026-10-30T03:41:16.053Z"
+  "updatedAt": "2026-10-30T03:43:36.091Z"
 }
