@@ -2,32 +2,25 @@
   "version": 1,
   "profile": {
     "name": "Monian",
-    "tagline": "橙光素材 · 制作",
+    "tagline": "修图 · 剪辑 · 记录生活的碎片",
     "avatar": "",
     "cover": "",
     "chips": [
-      "橙光",
-      "素材"
+      "视觉创作者",
+      "可接约稿",
+      "常驻线上"
     ],
     "bio": "你好，我是 **Monian**。\n\n这里收集我散落在各个平台的落脚点：修图与剪辑作品、日常随笔、偶尔的碎碎念。\n\n- 修图为主，偶尔剪点小片子\n- 所有作品仅展示，`禁二改` 与抹水印\n- 合作 / 约稿请走邮箱或小红书私信\n\n---\n\n下面是链接目录，点任意一张卡片即可跳转。"
   },
   "links": [
     {
-      "id": "l-4qjjanm",
+      "id": "l-1esy90u",
       "platform": "link",
-      "title": "Monian-PhotoTool",
-      "desc": "图片批处理工具（命名、尺寸、压缩打包）",
-      "url": "https://mlinkr.github.io/Monian-PhotoTool/",
-      "icon": ""
-    },
-    {
-      "id": "l-5k7a7l7",
-      "platform": "link",
-      "title": "Monianz-Preview",
-      "desc": "拼图预览制作（调试好后，每次直接上传一键生成）",
+      "title": "Monian-Preview",
+      "desc": "拼图预览（调试好后，每次上传图片一键生成）",
       "url": "https://mlinkr.github.io/Monian-Preview/",
       "icon": ""
     }
   ],
-  "updatedAt": "2026-10-30T03:29:42.327Z"
+  "updatedAt": "2026-10-30T03:35:27.679Z"
 }
