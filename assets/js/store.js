@@ -125,6 +125,22 @@ export async function publish() {
       method: 'PUT', headers: headers(), body: JSON.stringify(body),
     });
     if (!res.ok) {
+      /* 版本冲突（多端同时改 / 重复点击）：重取最新 sha 自动重试一次 */
+      if (res.status === 409 || res.status === 422) {
+        const fresh = await remoteSha();
+        body.sha = fresh;
+        const retry = await fetch(`${API}/repos/${OWNER}/${REPO}/contents/${PATH}`, {
+          method: 'PUT', headers: headers(), body: JSON.stringify(body),
+        });
+        if (retry.ok) {
+          store.data.updatedAt = payload.updatedAt;
+          store.dirty = false;
+          clearDraft();
+          return true;
+        }
+        const err2 = await retry.json().catch(() => ({}));
+        throw new Error(err2.message || `发布冲突，请刷新页面后再试（${retry.status}）`);
+      }
       const err = await res.json().catch(() => ({}));
       throw new Error(err.message || `提交失败（${res.status}）`);
     }
