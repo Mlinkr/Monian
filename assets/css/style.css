@@ -5,9 +5,9 @@
    ========================================================== */
 
 :root{
-  --accent:#b87d6e;
-  --accent-2:#6d9e8f;
-  --bg-soft:#f7f4f0;
+  --accent:#6a95b5;   /* 深水面蓝 */
+  --accent-2:#7fb5c4; /* 浅水青 */
+  --bg-soft:#f2f6fa;  /* 冰白 */
   --card:rgba(255,255,255,.56);
   --card-hover:rgba(255,255,255,.74);
   --line:rgba(0,0,0,.08);
@@ -75,12 +75,13 @@ p{margin:0}
 .hero-cover{
   position:absolute;inset:0;z-index:-1;
   background-size:cover;background-position:center;
-  background-image:linear-gradient(135deg,#e9dbd4 0%,#d9e4df 48%,#f0e7d9 100%);
+  background-image:url("../../media/theme-water.jpg");
+  background-size:cover;background-position:center;
   transform:scale(1.02);
 }
 .hero-cover::after{
   content:"";position:absolute;inset:0;
-  background:linear-gradient(180deg,rgba(255,251,247,.18) 0%,rgba(255,251,247,.62) 62%,rgba(247,244,240,.94) 100%);
+  background:linear-gradient(180deg,rgba(250,253,255,.10) 0%,rgba(250,253,255,.55) 58%,rgba(242,246,250,.94) 100%);
 }
 .hero-inner{
   position:relative;z-index:2;
@@ -103,7 +104,7 @@ p{margin:0}
   position:relative;width:100%;height:100%;border-radius:50%;object-fit:cover;
   border:4px solid rgba(255,255,255,.72);
   background:#e8e4df;
-  box-shadow:0 16px 40px -14px rgba(90,70,60,.42);
+  box-shadow:0 16px 40px -14px rgba(50,90,120,.45);
 }
 .avatar.is-mono{display:grid;place-items:center;
   font-family:var(--ff-heading);font-size:38px;font-weight:700;color:#fff;
@@ -113,7 +114,7 @@ p{margin:0}
   font-family:var(--ff-heading);
   font-size:clamp(27px,7vw,36px);
   font-weight:700;letter-spacing:.02em;
-  background:linear-gradient(180deg,#3a3842,#6b5c5c);
+  background:linear-gradient(180deg,#33506a,#5f7d99);
   -webkit-background-clip:text;background-clip:text;color:transparent;
 }
 .hero-tagline{
@@ -137,7 +138,7 @@ p{margin:0}
   background:var(--card);border:1px solid var(--line);border-radius:var(--radius);
   -webkit-backdrop-filter:blur(24px) saturate(150%);
   backdrop-filter:blur(24px) saturate(150%);
-  box-shadow:0 10px 34px -26px rgba(60,45,40,.55);
+  box-shadow:0 10px 34px -26px rgba(50,80,110,.5);
 }
 .bio{padding:22px 24px;font-size:14.5px;line-height:1.85;color:var(--txt)}
 .bio p{margin:0 0 12px}
@@ -172,7 +173,7 @@ p{margin:0}
   border-radius:17px;
   -webkit-backdrop-filter:blur(24px) saturate(150%);
   backdrop-filter:blur(24px) saturate(150%);
-  box-shadow:0 8px 26px -22px rgba(60,45,40,.7);
+  box-shadow:0 8px 26px -22px rgba(50,80,110,.65);
   transition:transform .28s cubic-bezier(.2,.7,.3,1),
              background .28s, border-color .28s, box-shadow .28s;
   overflow:hidden;
@@ -300,7 +301,7 @@ body.ready .skeleton{display:none}
 
 [hidden]{display:none!important}
 @media (hover:none){
-  .link:hover{transform:none;background:var(--card);border-color:var(--line);box-shadow:0 8px 26px -22px rgba(60,45,40,.7)}
+  .link:hover{transform:none;background:var(--card);border-color:var(--line);box-shadow:0 8px 26px -22px rgba(50,80,110,.65)}
   .link:hover::before{opacity:0}
   .link:hover .link-go{background:rgba(0,0,0,.045);border-color:var(--line);color:var(--txt-3);transform:none}
 }
@@ -321,9 +322,9 @@ body.ready .skeleton{display:none}
   margin:0 -18px 14px;
   padding:calc(9px + env(safe-area-inset-top)) 14px 9px;
   font-size:12.5px;color:#2f2d38;
-  background:linear-gradient(90deg,rgba(196,154,140,.94),rgba(143,181,168,.94));
+  background:linear-gradient(90deg,rgba(150,190,214,.94),rgba(160,215,220,.94));
   -webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px);
-  box-shadow:0 8px 24px -14px rgba(120,80,60,.5);
+  box-shadow:0 8px 24px -14px rgba(60,110,150,.5);
 }
 .edit-who{
   font-weight:650;white-space:nowrap;
