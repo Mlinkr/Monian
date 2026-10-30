@@ -1,6 +1,7 @@
 /* ==========================================================
    Monian · 平台表
-   只负责：链接 → 平台识别 / 图标字形 / 品牌色
+   只负责「装饰」：已知平台 → 品牌色 / 字形
+   任意域名都可作为普通网站链接使用，未知平台回落到 link 样式
    ========================================================== */
 
 export const PLATFORMS = {
@@ -21,7 +22,7 @@ export const PLATFORMS = {
   lofter:      { name: 'LOFTER', badge: 'LO', color: '#3B7CFF' },
   pixiv:       { name: 'pixiv',  badge: 'P',  color: '#0096FA' },
   email:       { name: '邮箱',   badge: '@',  color: '#7c5cff' },
-  link:        { name: '链接',   badge: '↗',  color: '#7c5cff' },
+  link:        { name: '网站',   badge: '↗',  color: '#7c5cff' },
 };
 
 /* 域名 → 平台 key，顺序敏感：先匹配更具体的域名 */
@@ -45,7 +46,7 @@ const RULES = [
   [/^mailto:|^[^\s@]+@[^\s@]+\.[^\s@]+$/i, 'email'],
 ];
 
-/** 由链接推断平台 */
+/** 由链接推断平台；不认识的都当作普通网站 */
 export function detectPlatform(url = '') {
   const u = String(url).trim();
   for (const [re, key] of RULES) if (re.test(u)) return key;
@@ -57,11 +58,22 @@ export function normalizeUrl(raw = '') {
   let u = String(raw).trim();
   if (!u) return '';
   if (/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(u)) return 'mailto:' + u;
-  if (!/^https?:\/\//i.test(u) && !/^mailto:/i.test(u) && !/^\//.test(u)) u = 'https://' + u;
+  if (!/^https?:\/\//i.test(u) && !/^mailto:/i.test(u) && !/^tel:/i.test(u)) u = 'https://' + u;
   return u;
 }
 
-/** 取平台配置，未知平台回落到通用链接样式 */
+/** 取展示用的域名，例如 https://www.figma.com/file → figma.com */
+export function hostOf(url = '') {
+  const u = normalizeUrl(url);
+  if (u.startsWith('mailto:')) return u.slice(7);
+  try {
+    return new URL(u).hostname.replace(/^www\./, '');
+  } catch {
+    return '';
+  }
+}
+
+/** 平台配置，未知平台回落通用样式 */
 export function platformOf(key) {
   return PLATFORMS[key] || PLATFORMS.link;
 }
