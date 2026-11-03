@@ -10,6 +10,7 @@ import { detectPlatform, normalizeUrl, platformOf, hostOf, PLATFORMS } from './p
 import { md2html } from './markdown.js';
 import { compressImage, srcOf } from './media.js';
 import { openLogin, signOut, restore } from './auth.js';
+import { buildIcons, applyFavicon } from './icons.js';
 
 const $ = (sel, root = document) => root.querySelector(sel);
 const $$ = (sel, root = document) => [...root.querySelectorAll(sel)];
@@ -45,6 +46,23 @@ function cleanLine(v) {
 
 function isEditing() {
   return store.editing;
+}
+
+/* ================= 站点图标（跟随头像） ================= */
+
+/**
+ * 头像变了就重算图标：立即更新标签页图标，
+ * 同时缓存到 store.icons，发布时写入仓库供「添加到主屏幕」使用
+ */
+async function syncIcons() {
+  const p = store.data.profile;
+  try {
+    const icons = await buildIcons(p.avatar || '', p.name || 'Monian');
+    store.icons = icons;
+    applyFavicon(icons.dataUrl);
+  } catch (err) {
+    console.warn('[Monian] 图标生成失败', err);
+  }
 }
 
 /* ================= 渲染：Hero ================= */
@@ -443,7 +461,7 @@ function bindInlineEditors() {
 
   $$('.hero-name').forEach(n => n.onclick = () => inlineEdit(n, {
     placeholder: '你的名字',
-    onSave: v => { p.name = v; touch(); paintHero(); bindInlineEditors(); },
+    onSave: v => { p.name = v; touch(); paintHero(); bindInlineEditors(); syncIcons(); },
     onEmpty: () => paintHero(),
   }));
 
@@ -613,6 +631,9 @@ async function boot() {
   $('#skeleton')?.remove();
   document.body.classList.add('ready');
 
+  /* 站点图标跟随已保存的头像 */
+  syncIcons();
+
   paintHero();
   paintBio();
   paintLinks();
@@ -653,7 +674,8 @@ async function boot() {
     pickImage('avatar', data => {
       store.data.profile.avatar = data;
       touch();
-      toast('头像已更新，记得发布', 'ok');
+      syncIcons();   /* 图标立刻跟着换 */
+      toast('头像已更新，图标已同步，记得发布', 'ok');
     });
   };
   $('#coverBtn').onclick = e => {
