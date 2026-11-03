@@ -4,10 +4,17 @@
    · 写：GitHub Contents API（仅登录本人的 token 可写）
    ========================================================== */
 
+import { dataUrlToBase64 } from './icons.js';
+
 const OWNER = 'Mlinkr';
 const REPO = 'Monian';
 const BRANCH = 'main';
 const PATH = 'data/site.json';
+/* 站点图标：由头像生成的两张 PNG，发布时一并提交 */
+const ICON_192 = 'media/icon-192.png';
+const ICON_512 = 'media/icon-512.png';
+const ICON_180 = 'media/icon-180.png';
+const ICON_MASK = 'media/icon-maskable.png';
 const API = 'https://api.github.com';
 
 export const emptyData = () => ({
@@ -24,6 +31,7 @@ export const store = {
   editing: false,     // 是否处于编辑态
   token: '',          // 本人 GitHub token（只存浏览器本地）
   user: null,         // { login, avatar_url }
+  icons: null,        // 由头像生成的图标集合（发布时写入仓库）
   saving: false,
 };
 
@@ -108,11 +116,48 @@ async function remoteSha() {
   return json.sha;
 }
 
+/** 写入任意文件；不存在则新建，存在则带 sha 覆盖 */
+async function putFile(path, base64, message) {
+  let sha = null;
+  const head = await fetch(`${API}/repos/${OWNER}/${REPO}/contents/${path}?ref=${BRANCH}`, { headers: headers() });
+  if (head.ok) sha = (await head.json()).sha;
+  else if (head.status !== 404) throw new Error(`读取 ${path} 失败（${head.status}）`);
+
+  const body = { message, content: base64, branch: BRANCH };
+  if (sha) body.sha = sha;
+
+  const res = await fetch(`${API}/repos/${OWNER}/${REPO}/contents/${path}`, {
+    method: 'PUT', headers: headers(), body: JSON.stringify(body),
+  });
+  if (!res.ok) {
+    /* 并发冲突：重取 sha 再试一次 */
+    if (res.status === 409 || res.status === 422) {
+      const again = await fetch(`${API}/repos/${OWNER}/${REPO}/contents/${path}?ref=${BRANCH}`, { headers: headers() });
+      if (again.ok) body.sha = (await again.json()).sha;
+      const retry = await fetch(`${API}/repos/${OWNER}/${REPO}/contents/${path}`, {
+        method: 'PUT', headers: headers(), body: JSON.stringify(body),
+      });
+      if (retry.ok) return true;
+    }
+    throw new Error(`写入 ${path} 失败`);
+  }
+  return true;
+}
+
 /** 把当前数据提交到仓库；图片已在前端压缩成 dataURL 一并写入 */
 export async function publish() {
   if (!store.token) throw new Error('未登录，无法发布');
   store.saving = true;
   try {
+    /* 先把头像生成的图标写进仓库，站点图标才会跟着头像变 */
+    if (store.icons) {
+      const stamp = `update icons · ${new Date().toLocaleString('zh-CN', { hour12: false })}`;
+      await putFile(ICON_192, dataUrlToBase64(store.icons.png192), stamp);
+      await putFile(ICON_512, dataUrlToBase64(store.icons.png512), stamp);
+      await putFile(ICON_180, dataUrlToBase64(store.icons.png180), stamp);
+      await putFile(ICON_MASK, dataUrlToBase64(store.icons.maskable), stamp);
+    }
+
     const sha = await remoteSha();
     const payload = { ...store.data, updatedAt: new Date().toISOString() };
     const body = {
