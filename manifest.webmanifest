@@ -1,0 +1,17 @@
+{
+  "name": "Monian · Links",
+  "short_name": "Monian",
+  "description": "Monian — 所有链接都在这里",
+  "lang": "zh-CN",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#f2f6fa",
+  "theme_color": "#f2f6fa",
+  "icons": [
+    { "src": "media/icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any" },
+    { "src": "media/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any" },
+    { "src": "media/icon-maskable.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" }
+  ]
+}
